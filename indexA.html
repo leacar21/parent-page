@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+    <script>
+
+        window.onload = function () {
+            var frame = document.getElementById('iframe1');
+            // the message to send is "http://localhost:8080/brand", the path to the css file of brand
+            frame.contentWindow.postMessage("http://localhost:8080/brandA", '*');
+
+            if (window.addEventListener) {
+                window.addEventListener("message", processResponseMessage, false);
+            }
+            else {
+                window.attachEvent("onmessage", processResponseMessage);
+            }
+
+        };
+
+        function processResponseMessage(event) {
+            // IMPORTANT: Check the origin of the data! 
+            if (~event.origin.indexOf('http://leacar21')) {
+                // The data has been sent from your iframe 
+
+                $('#result').html(event.data);
+            }
+        }
+
+    </script>
+
+</head>
+
+<body>
+
+    <div class="row" style="background-color: orangered; border: black 1px solid; margin: 5px; padding: 10px;">
+        <div class="col-md-1">Header in parent Page</div>
+    </div>
+    <div class="row" id="iframe-div" style="margin: 5px;">
+        <iframe name="iframe1" id="iframe1" src="http://leacar21/formIframe.html" width="1200px" height="850px"></iframe>
+    </div>
+    <div class="row" id="result" style="font-weight: bold; font-size: 20px; color:orangered; margin: 5px;">
+    </div>
+    <div class="row" style="background-color: orangered; border: black 1px solid; margin: 5px; padding: 10px;">
+        <div class="col-md-1">Footer in Parent Page</div>
+    </div>
+
+</body>
+
+</html>
