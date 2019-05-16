@@ -15,8 +15,8 @@
 
         window.onload = function () {
             var frame = document.getElementById('iframe1');
-            // the message to send is "http://localhost:8080/brand", the path to the css file of brand
-            frame.contentWindow.postMessage("http://localhost:8080/brandA", '*');
+            // the message to send is "http://parent-page.herokuapp.com/brand", the path to the css file of brand
+            frame.contentWindow.postMessage("http://parent-page.herokuapp.com/brandA", '*');
 
             if (window.addEventListener) {
                 window.addEventListener("message", processResponseMessage, false);
@@ -29,7 +29,7 @@
 
         function processResponseMessage(event) {
             // IMPORTANT: Check the origin of the data! 
-            if (~event.origin.indexOf('http://leacar21')) {
+            if (~event.origin.indexOf('http://iframe-page.herokuapp.com')) {
                 // The data has been sent from your iframe 
 
                 $('#result').html(event.data);
@@ -46,7 +46,7 @@
         <div class="col-md-1">Header in parent Page</div>
     </div>
     <div class="row" id="iframe-div" style="margin: 5px;">
-        <iframe name="iframe1" id="iframe1" src="http://leacar21/formIframe.html" width="1200px" height="850px"></iframe>
+        <iframe name="iframe1" id="iframe1" src="http://iframe-page.herokuapp.com/formIframe.html" width="1200px" height="850px"></iframe>
     </div>
     <div class="row" id="result" style="font-weight: bold; font-size: 20px; color:orangered; margin: 5px;">
     </div>
